@@ -1,0 +1,355 @@
+﻿<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criatos | Links</title>
+    <style>
+        /* * PALETA DE CORES:
+         * 60%: #5E2CA5 (Roxo - Fundo principal e identidade)
+         * 30%: #161515 (Preto/Escuro - Sombras, profundidade e contrastes) 
+         * #D1CEBF (Bege - Textos e preenchimento dos cartões de vidro)
+         * 10%: #F2B804 (Amarelo - Destaques, Hovers, Logo e Call to Action)
+         */
+
+
+        :root {
+            --purple: #5E2CA5;
+            --yellow: #F2B804;
+            --beige: #D1CEBF;
+            --dark: #161515;
+        }
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+
+        body {
+            /* Fundo com Degradê Animado */
+            background: linear-gradient(-45deg, var(--purple), var(--dark), #4a1f85, #3b1b69);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: var(--beige);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 3rem 1.5rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+
+        /* --- CONTEÚDO PRINCIPAL --- */
+        main {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 450px; /* Largura otimizada para manter estilo mobile em desktop */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+
+        /* --- PERFIL --- */
+        .profile-container {
+            margin-bottom: 2.5rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+
+        .avatar {
+            width: 130px;
+            height: 130px;
+            margin-bottom: 1.5rem;
+            border-radius: 50%;
+            background: var(--dark);
+            border: 4px solid rgba(209, 206, 191, 0.15);
+            box-shadow: 0 10px 30px rgba(22, 21, 21, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+
+        /* Tipografia do Perfil */
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            letter-spacing: 2px;
+            color: #FFFFFF;
+            text-shadow: 0 2px 10px rgba(22, 21, 21, 0.5);
+        }
+
+
+        p.bio {
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--beige);
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            max-width: 80%;
+            text-align: center;
+        }
+
+
+        /* --- CARTÕES DE LINKS (GLASSMORPHISM) --- */
+        .links-wrapper {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+
+        .link-card {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            padding: 1.2rem 1.5rem;
+            text-decoration: none;
+            color: var(--beige);
+            font-weight: 600;
+            font-size: 1.05rem;
+            border-radius: 20px;
+            
+            /* O Segredo do Vidro Fosco */
+            background: rgba(209, 206, 191, 0.08); /* Fundo quase transparente bege */
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(209, 206, 191, 0.15); /* Borda fina clara */
+            box-shadow: 0 8px 25px rgba(22, 21, 21, 0.25); /* Sombra para profundidade */
+            
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+
+        /* Efeito de brilho ao passar o rato (Desktop) */
+        .link-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(242, 184, 4, 0.2), transparent);
+            transition: all 0.6s ease;
+        }
+
+
+        /* Interações Hover e Focus */
+        .link-card:hover, .link-card:focus {
+            transform: translateY(-5px);
+            background: rgba(209, 206, 191, 0.15);
+            border-color: rgba(242, 184, 4, 0.6); /* Borda fica amarela */
+            color: var(--yellow); /* Texto fica amarelo */
+            box-shadow: 0 12px 30px rgba(22, 21, 21, 0.4), 0 0 15px rgba(242, 184, 4, 0.2);
+            outline: none;
+        }
+
+
+        .link-card:hover::before {
+            left: 100%;
+        }
+
+
+        .link-card:hover .icon-container img {
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 5px rgba(242, 184, 4, 0.5));
+        }
+
+
+        /* Ícones dentro dos botões */
+        .icon-container {
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1.5rem;
+            flex-shrink: 0;
+            background: rgba(22, 21, 21, 0.2); /* Fundo escuro sutil para destacar ícone */
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+
+        .icon-container img {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+            transition: all 0.3s ease;
+        }
+
+
+        .link-text {
+            flex-grow: 1;
+            text-align: center;
+            padding-right: 35px; /* Compensa o tamanho do ícone para centralizar o texto no meio exato */
+            letter-spacing: 0.5px;
+        }
+
+
+        /* --- FOOTER --- */
+        footer {
+            margin-top: 4rem;
+            position: relative;
+            z-index: 1;
+            font-size: 0.85rem;
+            color: var(--beige);
+            opacity: 0.6;
+            text-align: center;
+            font-weight: 300;
+        }
+
+
+        /* --- RESPONSIVIDADE PEQUENOS AJUSTES --- */
+        @media (max-width: 380px) {
+            .link-card {
+                padding: 1rem 1.2rem;
+            }
+            .icon-container {
+                margin-right: 1rem;
+            }
+            .link-text {
+                padding-right: 35px;
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+
+    <main>
+        <!-- Perfil Principal -->
+        <div class="profile-container">
+            
+            <!-- AVATAR: Basta alterar o "src" abaixo para o nome da sua imagem (ex: PFP.png) -->
+            <div class="avatar" aria-label="Logo Criatos">
+                <img src="PFP.png" alt="Avatar Criatos">
+            </div>
+            
+            <h1>CRIATOS</h1>
+            <p class="bio">O seu hub de criatividade e cultura. Escolha a sua plataforma favorita:</p>
+        </div>
+
+
+        <!-- Seção de Links -->
+        <div class="links-wrapper">
+            
+            <!-- SPOTIFY -->
+            <a href="https://open.spotify.com/show/033AA8SfgiaysEZKSZy4a1" target="_blank" rel="noopener noreferrer" class="link-card" data-link="Spotify">
+                <div class="icon-container">
+                    <!-- ÍCONE: Altere o "src" para a sua imagem local (ex: spotify.png ou spotify.svg) -->
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg" alt="Spotify">
+                </div>
+                <span class="link-text">Ouvir no Spotify</span>
+            </a>
+
+
+            <!-- AMAZON MUSIC -->
+            <a href="https://music.amazon.com.br/podcasts/77973b82-5024-454d-88d0-19104665b638/criatos" target="_blank" rel="noopener noreferrer" class="link-card" data-link="Amazon Music">
+                <div class="icon-container">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f6/Amazon_Music_logo.svg" alt="Amazon Music">
+                </div>
+                <span class="link-text">Amazon Music</span>
+            </a>
+
+
+            <!-- DEEZER -->
+            <a href="https://deezer.com/show/1003315041" target="_blank" rel="noopener noreferrer" class="link-card" data-link="Deezer">
+                <div class="icon-container">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Deezer_Icon.svg" alt="Deezer">
+                </div>
+                <span class="link-text">Ouvir no Deezer</span>
+            </a>
+
+
+            <!-- YOUTUBE -->
+            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="link-card" data-link="YouTube">
+                <div class="icon-container">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg" alt="YouTube">
+                </div>
+                <span class="link-text">Assistir no YouTube</span>
+            </a>
+
+
+        </div>
+    </main>
+
+
+    <footer>
+        &copy; 2026 Criatos. Desenvolvido para a comunidade.
+    </footer>
+
+
+    <!-- SCRIPT DE TRACKING (ANALYTICS) -->
+    <script>
+        /**
+         * Lógica de Dashboard Privado (Analytics):
+         * Como este é um site estático para garantir velocidade máxima e custo zero (ex: GitHub Pages),
+         * o rastreio de cliques e origem de utilizadores não exige um dashboard público.
+         * * Instrução para a versão em produção:
+         * 1. Crie uma conta no Google Analytics (GA4) ou Microsoft Clarity (ambos gratuitos).
+         * 2. Cole a tag de rastreio deles no <head> deste ficheiro.
+         * 3. O código abaixo irá enviar os eventos de clique ("click_link") diretamente para o seu 
+         * painel seguro da Google. Os seus utilizadores não saberão nem terão acesso, mas você 
+         * poderá ver relatórios incrivelmente detalhados no seu telemóvel e PC.
+         */
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            const links = document.querySelectorAll('.link-card');
+            
+            links.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    const linkName = link.getAttribute('data-link');
+                    const url = link.getAttribute('href');
+                    
+                    // Simulação visual para o ambiente de teste
+                    console.log(`[Dashboard Privado] Clique registado: Plataforma '${linkName}', Destino: '${url}'`);
+
+
+                    // Se o Google Analytics (gtag) estiver presente, envia o evento silenciosamente
+                    if (typeof gtag === 'function') {
+                        gtag('event', 'click_link', {
+                            'link_name': linkName,
+                            'link_url': url,
+                            'timestamp': new Date().toISOString()
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+
+
+</body>
+</html>
