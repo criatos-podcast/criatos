@@ -1,25 +1,24 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-PT">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Criatos | Links</title>
+    <title>Criatos | O teu DNA é Criativo!</title>
     <style>
-        /* * PALETA DE CORES:
-         * 60%: #5E2CA5 (Roxo - Fundo principal e identidade)
-         * 30%: #161515 (Preto/Escuro - Sombras, profundidade e contrastes) 
-         * #D1CEBF (Bege - Textos e preenchimento dos cartões de vidro)
-         * 10%: #F2B804 (Amarelo - Destaques, Hovers, Logo e Call to Action)
-         */
-
-
+        /* =========================================
+           PALETA DE CORES & VARIÁVEIS
+           ========================================= */
         :root {
             --purple: #5E2CA5;
+            --purple-dark: #3b1b69;
             --yellow: #F2B804;
+            --yellow-glow: rgba(242, 184, 4, 0.4);
             --beige: #D1CEBF;
-            --dark: #161515;
+            --dark: #0a0a0a;
+            --glass-bg: rgba(209, 206, 191, 0.03);
+            --glass-border: rgba(209, 206, 191, 0.15);
+            --glass-highlight: rgba(255, 255, 255, 0.1);
         }
-
 
         * {
             margin: 0;
@@ -29,12 +28,8 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-
         body {
-            /* Fundo com Degradê Animado */
-            background: linear-gradient(-45deg, var(--purple), var(--dark), #4a1f85, #3b1b69);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+            background-color: var(--dark);
             color: var(--beige);
             min-height: 100vh;
             display: flex;
@@ -43,53 +38,70 @@
             padding: 3rem 1.5rem;
             position: relative;
             overflow-x: hidden;
+            overflow-y: auto;
         }
 
-
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        /* =========================================
+           BACKGROUND DINÂMICO NATIVO HTML5 CANVAS
+           ========================================= */
+        #interactive-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
         }
 
-
-        /* --- CONTEÚDO PRINCIPAL --- */
+        /* =========================================
+           CONTEÚDO PRINCIPAL
+           ========================================= */
         main {
             position: relative;
-            z-index: 1;
+            z-index: 2;
             width: 100%;
-            max-width: 450px; /* Largura otimizada para manter estilo mobile em desktop */
+            max-width: 480px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-
-        /* --- PERFIL --- */
+        /* --- PERFIL PREMIUM --- */
         .profile-container {
             margin-bottom: 2.5rem;
             text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
+            width: 100%;
         }
 
-
-        .avatar {
-            width: 130px;
-            height: 130px;
+        .avatar-ring {
+            position: relative;
+            width: 140px;
+            height: 140px;
             margin-bottom: 1.5rem;
             border-radius: 50%;
-            background: var(--dark);
-            border: 4px solid rgba(209, 206, 191, 0.15);
-            box-shadow: 0 10px 30px rgba(22, 21, 21, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            position: relative;
+            background: linear-gradient(135deg, var(--yellow), var(--purple));
+            padding: 4px;
+            box-shadow: 0 10px 40px rgba(242, 184, 4, 0.2);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
+        .avatar-ring:hover {
+            transform: scale(1.08);
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: var(--dark);
+            overflow: hidden;
+            position: relative;
+            border: 3px solid var(--dark);
+        }
 
         .avatar img {
             width: 100%;
@@ -97,259 +109,412 @@
             object-fit: cover;
         }
 
-
-        /* Tipografia do Perfil */
-        h1 {
-            font-size: 1.8rem;
-            font-weight: 800;
+        .eyebrow {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--yellow);
+            font-weight: 700;
             margin-bottom: 0.5rem;
-            letter-spacing: 2px;
-            color: #FFFFFF;
-            text-shadow: 0 2px 10px rgba(22, 21, 21, 0.5);
         }
 
+        h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: #FFFFFF;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
 
         p.bio {
-            font-size: 1rem;
+            font-size: 1.05rem;
             font-weight: 400;
             color: var(--beige);
-            opacity: 0.9;
-            margin-bottom: 2rem;
-            max-width: 80%;
-            text-align: center;
+            opacity: 0.85;
+            line-height: 1.6;
+            padding: 0 1rem;
         }
 
-
-        /* --- CARTÕES DE LINKS (GLASSMORPHISM) --- */
+        /* =========================================
+           CARTÕES GLASSMORPHISM (PODCASTS)
+           ========================================= */
         .links-wrapper {
             width: 100%;
             display: flex;
             flex-direction: column;
-            gap: 1.2rem;
+            gap: 1.1rem;
+            margin-bottom: 2.5rem;
         }
-
 
         .link-card {
             display: flex;
             align-items: center;
             width: 100%;
-            padding: 1.2rem 1.5rem;
+            padding: 1.1rem 1.5rem;
             text-decoration: none;
             color: var(--beige);
             font-weight: 600;
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             border-radius: 20px;
             
-            /* O Segredo do Vidro Fosco */
-            background: rgba(209, 206, 191, 0.08); /* Fundo quase transparente bege */
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(209, 206, 191, 0.15); /* Borda fina clara */
-            box-shadow: 0 8px 25px rgba(22, 21, 21, 0.25); /* Sombra para profundidade */
+            /* Efeito Vidro Fosco */
+            background: linear-gradient(135deg, rgba(209, 206, 191, 0.08), rgba(209, 206, 191, 0.01));
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
             
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            /* Refração da luz nas bordas */
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            
+            box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.4);
+            
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .link-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 50%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+            transform: skewX(-20deg);
+            transition: 0.6s ease;
+        }
+
+        .link-card:hover::after {
+            left: 150%;
+        }
+
+        .link-card:hover, .link-card:focus {
+            transform: translateY(-5px);
+            background: linear-gradient(135deg, rgba(209, 206, 191, 0.12), rgba(209, 206, 191, 0.03));
+            border-color: var(--yellow);
+            color: var(--yellow);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5), 0 0 25px rgba(242, 184, 4, 0.15);
+            outline: none;
+        }
+
+        .icon-container {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1.2rem;
+            flex-shrink: 0;
+            background: rgba(0, 0, 0, 0.35);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s ease;
+        }
+
+        .icon-container svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--beige);
+            transition: all 0.4s ease;
+        }
+
+        .link-card:hover .icon-container {
+            background: var(--yellow-glow);
+            border-color: var(--yellow);
+        }
+
+        .link-card:hover .icon-container svg {
+            fill: var(--dark);
+            transform: scale(1.15);
+        }
+
+        .link-text {
+            flex-grow: 1;
+            text-align: left;
+            letter-spacing: 0.3px;
+        }
+
+        .arrow {
+            opacity: 0.2;
+            transition: all 0.3s ease;
+        }
+        
+        .link-card:hover .arrow {
+            opacity: 1;
+            transform: translateX(5px);
+            fill: var(--yellow);
+        }
+
+        /* =========================================
+           REDES SOCIAIS (BOTÕES CIRCULARES)
+           ========================================= */
+        .social-wrapper {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .social-card {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            text-decoration: none;
+            border-radius: 50%;
+            
+            background: linear-gradient(135deg, rgba(209, 206, 191, 0.08), rgba(209, 206, 191, 0.01));
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.4);
+            
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
             position: relative;
             overflow: hidden;
         }
 
+        .social-card svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--beige);
+            transition: all 0.4s ease;
+            position: relative;
+            z-index: 2;
+        }
 
-        /* Efeito de brilho ao passar o rato (Desktop) */
-        .link-card::before {
+        .social-card::after {
             content: '';
             position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(120deg, transparent, rgba(242, 184, 4, 0.2), transparent);
-            transition: all 0.6s ease;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(242,184,4,0.3) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 1;
         }
 
-
-        /* Interações Hover e Focus */
-        .link-card:hover, .link-card:focus {
+        .social-card:hover, .social-card:focus {
             transform: translateY(-5px);
-            background: rgba(209, 206, 191, 0.15);
-            border-color: rgba(242, 184, 4, 0.6); /* Borda fica amarela */
-            color: var(--yellow); /* Texto fica amarelo */
-            box-shadow: 0 12px 30px rgba(22, 21, 21, 0.4), 0 0 15px rgba(242, 184, 4, 0.2);
-            outline: none;
+            border-color: var(--yellow);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5), 0 0 25px rgba(242, 184, 4, 0.15);
         }
 
-
-        .link-card:hover::before {
-            left: 100%;
+        .social-card:hover::after {
+            opacity: 1;
         }
 
-
-        .link-card:hover .icon-container img {
-            transform: scale(1.1);
-            filter: drop-shadow(0 0 5px rgba(242, 184, 4, 0.5));
+        .social-card:hover svg {
+            fill: var(--yellow);
+            transform: scale(1.15);
         }
 
-
-        /* Ícones dentro dos botões */
-        .icon-container {
-            width: 35px;
-            height: 35px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 1.5rem;
-            flex-shrink: 0;
-            background: rgba(22, 21, 21, 0.2); /* Fundo escuro sutil para destacar ícone */
-            border-radius: 10px;
-            transition: all 0.3s ease;
-        }
-
-
-        .icon-container img {
-            width: 20px;
-            height: 20px;
-            object-fit: contain;
-            transition: all 0.3s ease;
-        }
-
-
-        .link-text {
-            flex-grow: 1;
-            text-align: center;
-            padding-right: 35px; /* Compensa o tamanho do ícone para centralizar o texto no meio exato */
-            letter-spacing: 0.5px;
-        }
-
-
-        /* --- FOOTER --- */
         footer {
             margin-top: 4rem;
             position: relative;
-            z-index: 1;
+            z-index: 2;
             font-size: 0.85rem;
             color: var(--beige);
-            opacity: 0.6;
+            opacity: 0.5;
             text-align: center;
-            font-weight: 300;
         }
 
-
-        /* --- RESPONSIVIDADE PEQUENOS AJUSTES --- */
-        @media (max-width: 380px) {
-            .link-card {
-                padding: 1rem 1.2rem;
-            }
-            .icon-container {
-                margin-right: 1rem;
-            }
-            .link-text {
-                padding-right: 35px;
-                font-size: 0.95rem;
-            }
-        }
     </style>
 </head>
 <body>
 
+    <!-- Fundo Interativo de LUZ -->
+    <canvas id="interactive-bg"></canvas>
 
     <main>
-        <!-- Perfil Principal -->
+        <!-- PERFIL -->
         <div class="profile-container">
-            
-            <!-- AVATAR: Basta alterar o "src" abaixo para o nome da sua imagem (ex: PFP.png) -->
-            <div class="avatar" aria-label="Logo Criatos">
-                <img src="PFP.png" alt="Avatar Criatos">
+            <div class="avatar-ring">
+                <div class="avatar">
+                    <img src="PFP.png" alt="Avatar Criatos" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjRjJCODA0Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSI0MCIgZm9udC13ZWlnaHQ9IjkwMCIgZmlsbD0iIzE2MTUxNSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+QzwvdGV4dD48L3N2Zz4='">
+                </div>
             </div>
-            
-            <h1>CRIATOS</h1>
-            <p class="bio">O seu hub de criatividade e cultura. Escolha a sua plataforma favorita:</p>
+            <span class="eyebrow">Criatos Podcast</span>
+            <h1>O teu DNA é Criativo!</h1>
+            <p class="bio">Um podcast cristão focado em explorar a criatividade, a cultura e a inovação à luz da Bíblia.</p>
         </div>
 
-
-        <!-- Seção de Links -->
+        <!-- LINKS DO PODCAST -->
         <div class="links-wrapper">
             
-            <!-- SPOTIFY -->
-            <a href="https://open.spotify.com/show/033AA8SfgiaysEZKSZy4a1" target="_blank" rel="noopener noreferrer" class="link-card" data-link="Spotify">
+            <!-- APPLE PODCASTS (NOVO) -->
+            <a href="https://podcasts.apple.com/us/podcast/criatos/id6785010570" target="_blank" rel="noopener noreferrer" class="link-card click-tracker" data-link="Apple Podcasts">
                 <div class="icon-container">
-                    <!-- ÍCONE: Altere o "src" para a sua imagem local (ex: spotify.png ou spotify.svg) -->
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg" alt="Spotify">
+                    <svg fill="#000000" viewBox="0 0 448.334 448.334"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="apple"> <g> <path d="M362.806,278.708c-5.486-12.602-8.572-26.77-8.572-41.686c0-6.328,0.561-12.423,1.621-18.299 c4.52-25.415,18.36-46.409,37.439-60.018c3.43-2.415,7.014-4.598,10.723-6.53c-25.749-40.627-67.708-44.103-80.895-45.49 c-28.68-2.992-69.111,22.367-91.059,22.367h-0.592c-21.946,0-62.379-25.359-91.059-22.367 c-14.276,1.465-59.916,9.555-87.441,53.408c-9.665,15.385-17.114,34.322-20.169,59.315c-1.093,9.009-1.622,18.424-1.498,28.867 c0.125,10.489,0.967,20.597,2.4,30.605c3.087,21.369,8.886,41.461,16.367,59.924c8.323,20.48,18.735,38.857,29.801,54.499 c24.474,34.649,52.186,54.655,67.835,55.014c32.109,0.717,60.009-21.003,83.047-20.442c0.25,0.078,0.498,0.078,0.717,0.063 l0.311-0.031l0.281,0.031c0.219,0.016,0.467,0,0.686-0.078c23.037-0.592,50.969,21.144,83.141,20.427 c15.586-0.358,43.332-20.38,67.803-55.03c11.066-15.641,21.478-34.049,29.739-54.545c1.246-3.055,2.432-6.157,3.615-9.306 C393.107,321.931,373.404,303.196,362.806,278.708z"></path> </g> <g> <path d="M288.176,73.384c24.691-29.21,23.724-71.256,21.479-73.11c-2.213-1.886-42.987,5.61-68.27,33.831 c-25.282,28.259-23.722,71.255-21.478,73.125C222.12,109.101,263.519,102.585,288.176,73.384z"></path> </g> </g> </g></svg>
                 </div>
-                <span class="link-text">Ouvir no Spotify</span>
+                <span class="link-text">Apple Podcasts</span>
+                <svg class="arrow" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M9 18l6-6-6-6"/></svg>
             </a>
-
-
-            <!-- AMAZON MUSIC -->
-            <a href="https://music.amazon.com.br/podcasts/77973b82-5024-454d-88d0-19104665b638/criatos" target="_blank" rel="noopener noreferrer" class="link-card" data-link="Amazon Music">
-                <div class="icon-container">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f6/Amazon_Music_logo.svg" alt="Amazon Music">
-                </div>
-                <span class="link-text">Amazon Music</span>
-            </a>
-
-
-            <!-- DEEZER -->
-            <a href="https://deezer.com/show/1003315041" target="_blank" rel="noopener noreferrer" class="link-card" data-link="Deezer">
-                <div class="icon-container">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Deezer_Icon.svg" alt="Deezer">
-                </div>
-                <span class="link-text">Ouvir no Deezer</span>
-            </a>
-
 
             <!-- YOUTUBE -->
-            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="link-card" data-link="YouTube">
+            <a href="https://youtube.com/@criatos" target="_blank" rel="noopener noreferrer" class="link-card click-tracker" data-link="YouTube">
                 <div class="icon-container">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg" alt="YouTube">
+                    <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
                 </div>
                 <span class="link-text">Assistir no YouTube</span>
+                <svg class="arrow" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M9 18l6-6-6-6"/></svg>
             </a>
 
+            <!-- SPOTIFY -->
+            <a href="https://open.spotify.com/show/033AA8SfgiaysEZKSZy4a1" target="_blank" rel="noopener noreferrer" class="link-card click-tracker" data-link="Spotify">
+                <div class="icon-container">
+                    <svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.84.24 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.6.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.239.54-.959.72-1.56.3z"/></svg>
+                </div>
+                <span class="link-text">Ouvir no Spotify</span>
+                <svg class="arrow" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M9 18l6-6-6-6"/></svg>
+            </a>
+
+            <!-- AMAZON MUSIC -->
+            <a href="https://music.amazon.com.br/podcasts/77973b82-5024-454d-88d0-19104665b638/criatos" target="_blank" rel="noopener noreferrer" class="link-card click-tracker" data-link="Amazon Music">
+                <div class="icon-container">
+                    <svg viewBox="0 0 24 24"><path d="M13.25 18.52c-2.45.65-5.38.74-7.98.07 3.53 1.25 7.42 1.08 10.82-.41-.95.42-1.93.71-2.84.34zm8.68-2.65c-2.41 3.59-6.42 5.92-10.89 6.13-3.69.17-7.24-1.18-9.98-3.65-.24-.22-.05-.62.29-.53 4.1 1.13 8.52.92 12.44-.75 2.11-.9 4.02-2.22 5.56-3.88.26-.28.71-.05.58.68z"/></svg>
+                </div>
+                <span class="link-text">Amazon Music</span>
+                <svg class="arrow" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M9 18l6-6-6-6"/></svg>
+            </a>
+
+            <!-- DEEZER -->
+            <a href="https://deezer.com/show/1003315041" target="_blank" rel="noopener noreferrer" class="link-card click-tracker" data-link="Deezer">
+                <div class="icon-container">
+                    <svg viewBox="0 0 24 24"><path d="M12.98 22.51h3.33v-3.32h-3.33v3.32zm4.33 0h3.32v-3.32h-3.32v3.32zm-8.66 0h3.33v-3.32H8.65v3.32zm8.66-4.32h3.32v-3.32h-3.32v3.32zm-4.33 0h3.33v-3.32h-3.33v3.32zm-4.33 0h3.33v-3.32H8.65v3.32zm-4.33 0h3.33v-3.32H4.32v3.32zm8.66-4.33h3.33v-3.33h-3.33v3.33zm-4.33 0h3.33v-3.33H8.65v3.33zm4.33-4.32h3.33V6.2h-3.33v3.34z"/></svg>
+                </div>
+                <span class="link-text">Ouvir no Deezer</span>
+                <svg class="arrow" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M9 18l6-6-6-6"/></svg>
+            </a>
+
+        </div>
+
+        <!-- REDES SOCIAIS (Círculos) -->
+        <div class="social-wrapper">
+            
+            <!-- INSTAGRAM -->
+            <a href="https://www.instagram.com/criatos.podcast?igsh=MWR6dnN5azd4bDFyNw%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" class="social-card click-tracker" aria-label="Instagram" data-link="Instagram">
+                <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+
+            <!-- TIKTOK -->
+            <a href="https://www.tiktok.com/@criatos.podcast?_r=1&_t=ZG-97ZPBwAIpof" target="_blank" rel="noopener noreferrer" class="social-card click-tracker" aria-label="TikTok" data-link="TikTok">
+                <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+            </a>
+
+            <!-- X (TWITTER) -->
+            <a href="https://x.com/criatospodcast?s=11" target="_blank" rel="noopener noreferrer" class="social-card click-tracker" aria-label="X (Twitter)" data-link="X Twitter">
+                <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
 
         </div>
     </main>
 
-
     <footer>
-        &copy; 2026 Criatos. Desenvolvido para a comunidade.
+        &copy; 2026 Criatos.
     </footer>
 
-
-    <!-- SCRIPT DE TRACKING (ANALYTICS) -->
+    <!-- SCRIPT DO FUNDO DINÂMICO NATIVO HTML5 -->
     <script>
-        /**
-         * Lógica de Dashboard Privado (Analytics):
-         * Como este é um site estático para garantir velocidade máxima e custo zero (ex: GitHub Pages),
-         * o rastreio de cliques e origem de utilizadores não exige um dashboard público.
-         * * Instrução para a versão em produção:
-         * 1. Crie uma conta no Google Analytics (GA4) ou Microsoft Clarity (ambos gratuitos).
-         * 2. Cole a tag de rastreio deles no <head> deste ficheiro.
-         * 3. O código abaixo irá enviar os eventos de clique ("click_link") diretamente para o seu 
-         * painel seguro da Google. Os seus utilizadores não saberão nem terão acesso, mas você 
-         * poderá ver relatórios incrivelmente detalhados no seu telemóvel e PC.
-         */
+        const canvas = document.getElementById('interactive-bg');
+        const ctx = canvas.getContext('2d');
         
-        document.addEventListener('DOMContentLoaded', () => {
-            const links = document.querySelectorAll('.link-card');
+        let width, height;
+        let pointer = { 
+            x: window.innerWidth / 2, y: window.innerHeight / 2, 
+            tx: window.innerWidth / 2, ty: window.innerHeight / 2 
+        };
+
+        const colorPurple = { r: 94, g: 44, b: 165 };
+        const colorYellow = { r: 242, g: 184, b: 4 };
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        window.addEventListener('mousemove', (e) => {
+            pointer.tx = e.clientX;
+            pointer.ty = e.clientY;
+        });
+
+        window.addEventListener('touchmove', (e) => {
+            pointer.tx = e.touches[0].clientX;
+            pointer.ty = e.touches[0].clientY;
+        }, { passive: true });
+
+        let time = 0;
+
+        function animate() {
+            time += 0.003; 
+
+            // Movimento suave
+            pointer.x += (pointer.tx - pointer.x) * 0.05;
+            pointer.y += (pointer.ty - pointer.y) * 0.05;
+
+            // Fundo profundo
+            ctx.fillStyle = '#0a0a0a'; 
+            ctx.fillRect(0, 0, width, height);
+
+            // 1. Luz Roxa Autônoma
+            let rx = width / 2 + Math.cos(time) * (width * 0.3);
+            let ry = height / 2 + Math.sin(time * 0.7) * (height * 0.4);
             
-            links.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    const linkName = link.getAttribute('data-link');
-                    const url = link.getAttribute('href');
-                    
-                    // Simulação visual para o ambiente de teste
-                    console.log(`[Dashboard Privado] Clique registado: Plataforma '${linkName}', Destino: '${url}'`);
+            let radiusPurple = Math.max(width, height) * 0.7; 
+            let grad1 = ctx.createRadialGradient(rx, ry, 0, rx, ry, radiusPurple);
+            grad1.addColorStop(0, `rgba(${colorPurple.r}, ${colorPurple.g}, ${colorPurple.b}, 0.5)`);
+            grad1.addColorStop(1, 'rgba(10, 10, 10, 0)');
+            
+            ctx.fillStyle = grad1;
+            ctx.fillRect(0, 0, width, height);
 
+            // 2. Luz Amarela que segue o cursor
+            let radiusYellow = Math.min(width, height) * 0.5; 
+            let grad2 = ctx.createRadialGradient(pointer.x, pointer.y, 0, pointer.x, pointer.y, radiusYellow);
+            grad2.addColorStop(0, `rgba(${colorYellow.r}, ${colorYellow.g}, ${colorYellow.b}, 0.12)`); 
+            grad2.addColorStop(0.5, `rgba(${colorYellow.r}, ${colorYellow.g}, ${colorYellow.b}, 0.05)`);
+            grad2.addColorStop(1, 'rgba(10, 10, 10, 0)');
+            
+            ctx.fillStyle = grad2;
+            
+            ctx.globalCompositeOperation = 'screen'; 
+            ctx.fillRect(0, 0, width, height);
+            
+            ctx.globalCompositeOperation = 'source-over'; 
 
-                    // Se o Google Analytics (gtag) estiver presente, envia o evento silenciosamente
-                    if (typeof gtag === 'function') {
-                        gtag('event', 'click_link', {
-                            'link_name': linkName,
-                            'link_url': url,
-                            'timestamp': new Date().toISOString()
-                        });
-                    }
-                });
+            requestAnimationFrame(animate);
+        }
+        animate(); 
+    </script>
+
+    <!-- SCRIPT DE RASTREIO DE CLIQUES -->
+    <script>
+        // O LINK NOVO GERADO PELO GOOGLE VAI AQUI DENTRO (COM AS ASPAS):
+        const GOOGLE_SCRIPT_URL = "SUA_URL_AQUI"; 
+
+        document.querySelectorAll('.click-tracker').forEach(link => {
+            link.addEventListener('click', function(e) {
+                const linkName = this.getAttribute('data-link');
+                
+                if(GOOGLE_SCRIPT_URL === "https://script.google.com/macros/s/AKfycbzAhUVu0n6Hqc4FTBltZ_VKz8TtwDchbhjq29ZiekyCw9CwEmZPmUlyalp2zOq4Eb9AVQ/exec") {
+                    console.warn(`[Modo de Teste] O clique em ${linkName} não foi gravado no Google porque falta a URL.`);
+                    return;
+                }
+
+                // Envio silencioso dos dados
+                fetch(`${GOOGLE_SCRIPT_URL}?link=${encodeURIComponent(linkName)}`, {
+                    method: 'GET',
+                    mode: 'no-cors' 
+                }).catch(err => console.log('Erro ao registar clique', err));
             });
         });
     </script>
-
-
 </body>
 </html>
